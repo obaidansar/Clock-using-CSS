@@ -1,0 +1,120 @@
+:root {
+    --second: 1s;
+    --minute: calc(var(--second) * 60);
+    --hour: calc(var(--minute) * 60);
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0);
+    }
+
+    to {
+        transform: rotate(1turn);
+    }
+}
+
+.second.hand {
+    animation: rotate steps(60) var(--minute) infinite;
+}
+
+.minute.hand {
+    animation: rotate linear var(--hour) infinite;
+    animation-delay: calc(var(--timeShiftMinute) * -1);
+}
+
+.hour.hand {
+    animation: rotate linear calc(var(--hour) * 12) infinite;
+    animation-delay: calc((var(--timeShiftHour) + var(--timeShiftMinute)) * -1);
+}
+
+.clock {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background-color: var(--grey);
+    margin: 0 auto;
+    position: relative;
+}
+.hand {
+    position: absolute;
+    left: calc(50% - 50px);
+    top: 50%;
+    width: 100px;
+    height: 150px;
+    background-color: var(--grey);
+}
+.second {
+    --width: 5px;
+    --height: 140px;
+    --color: var(--yellow);
+}
+
+.minute {
+    --width: 10px;
+    --height: 90px;
+    --color: var(--blue);
+}
+
+.hour {
+    --width: 10px;
+    --height: 50px;
+    --color: var(--dark-blue);
+}
+
+.hand {
+    position: absolute;
+    top: 50%;
+    left: calc(50% - var(--width) / 2);
+    width: var(--width);
+    height: var(--height);
+    background-color: var(--color);
+    transform-origin: center 0;
+}
+
+.clock {
+    /* same as before */
+    transform: rotate(180deg);
+}
+
+.hand {
+    /* same as before */
+    border-radius: calc(var(--width) / 2);
+}
+
+.clock {
+    animation-delay: -10s;
+    --setTimeHour: 11;
+    --setTimeMinute: 31;
+    --timeShiftHour: calc(var(--setTimeHour) * var(--hour));
+    --timeShiftMinute: calc(var(--setTimeMinute) * var(--minute));
+}
+
+
+.second.hand {
+    background-color: yellow;
+}
+
+.minute.hand {
+    background-color: blue;
+}
+
+.hour.hand {
+    background-color: red;
+}
+
+.clock {
+    background-color: lightslategrey;
+    margin-top: 169px;
+}
+body::before{
+    background: url('https://images.unsplash.com/photo-1533090161767-e6ffed986c88?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80') no-repeat center center/cover;
+    content: "";
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    opacity: 1;
+}
